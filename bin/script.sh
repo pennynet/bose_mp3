@@ -2,7 +2,7 @@
 
 # v0.0.1 (22.06.2026)
 
-# in rasperrymatic do:
+# in raspberrymatic do:
 # var player="name_of_soundtouch"; ! same as in /etc/bose_mp3-settings.conf
 # var payload="name_of_soundfile"; ! no ".mp3" suffix
 # dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("/usr/local/addons/bose_mp3/bin/script.sh" # " " # player # " " # payload);
