@@ -1,0 +1,33 @@
+#!/bin/sh
+
+ADDON_NAME=bose_mp3
+
+CONFIG_DIR=/usr/local/etc/config
+ADDON_DIR=/usr/local/addons/${ADDON_NAME}
+RCD_DIR=${CONFIG_DIR}/rc.d
+
+case "$1" in
+
+    info)
+        VERSION=$(cat "${ADDON_DIR}/VERSION" 2>/dev/null)
+
+        echo "Info: <b>Bose MP3 Addon</b><br>"
+        echo "Name: Bose MP3"
+
+        echo "Info: <a href='https://github.com/pennynet/${ADDON_NAME}'>https://github.com/pennynet/${ADDON_NAME}</a>"
+        echo "Version: ${VERSION}"
+        echo "Operations: uninstall"
+        echo "Config-Url: /addons/${ADDON_NAME}/index.html"
+    ;;
+
+    uninstall)
+        logger -t homematic -p user.info "removing addon ${ADDON_NAME}"
+
+        [ -L "${CONFIG_DIR}/addons/www/${ADDON_NAME}" ] && rm -f "${CONFIG_DIR}/addons/www/${ADDON_NAME}"
+        [ -e "${RCD_DIR}/${ADDON_NAME}" ] && rm -f "${RCD_DIR}/${ADDON_NAME}"
+        [ -d "${ADDON_DIR}" ] && rm -rf "${ADDON_DIR}"
+    ;;
+
+esac
+
+exit 0
