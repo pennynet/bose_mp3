@@ -1,4 +1,4 @@
-Very simple addon for rasperrymatic. It can play MP3-announcments on BOSE-Soundtouch (with fallback to a eventually running preset).
+Very simple addon for raspberrymatic. It can play MP3-announcments on BOSE-Soundtouch (with fallback to a eventually running preset).
 
 In raspberrymatic-skript do:  
 var player="name_of_soundtouch"; ! same as in /etc/bose_mp3-settings.conf  
