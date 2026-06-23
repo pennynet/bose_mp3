@@ -8,7 +8,7 @@ In raspberrymatic do as a skript:
 
 ! -------------------------------------------------------------------------------------------------------------------------------------    
 var action="announce";  
-var player="[name_of_soundtouch]"; ! same as in /etc/bose_mp3-settings.conf  
+var player="[name_of_soundtouch]"; ! same as in /usr/local/addons/bose_mp3/etc/bose_mp3-settings.conf  
 var payload="[name_of_soundfile]"; ! no ".mp3" suffix  
 dom.GetObject("CUxD.CUX2801001:1.CMD_EXE").State("/usr/local/addons/bose_mp3/bin/" # action # ".sh " # player # " " # payload);  
 ! -------------------------------------------------------------------------------------------------------------------------------------    
