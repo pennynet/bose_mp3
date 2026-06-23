@@ -5,7 +5,7 @@
 # in raspberrymatic do:
 #
 # var action="announce";
-# var player="name_of_soundtouch"; ! same as in /etc/bose_mp3-settings.conf
+# var player="name_of_soundtouch"; ! same as in /usr/local/addons/bose_mp3/etc/bose_mp3-settings.conf
 # var payload="name_of_soundfile"; ! no ".mp3" suffix
 #
 # dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("/usr/local/addons/bose_mp3/bin/" # action # ".sh " # player # " " # payload);
@@ -64,7 +64,7 @@ restore_volume() {
 trap restore_volume EXIT
 
 
-# play MP3 first and change volume
+# play MP3 first and then change volume
 curl -s \
      -d "{\"url\":\"${MP3_URL}\"}" \
      "http://${BOSE_IP}:8888/api/play" >/dev/null
@@ -75,7 +75,7 @@ curl -s \
      -d "<volume>${MP3_VOL}</volume>" >/dev/null
 
 
-# wait for end of announcement and then  restore preset
+# wait for end of announcement and then restore preset 
 [ "$PAYLOAD" = "bigben" ] && WAIT=78
   sleep "$WAIT"
 
