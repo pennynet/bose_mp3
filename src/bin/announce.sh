@@ -1,12 +1,15 @@
 #!/bin/sh
 
-# v0.0.1 (22.06.2026)
+# v0.1 (23.06.2026)
 
 # in raspberrymatic do:
+#
+# var action="announce";
 # var player="name_of_soundtouch"; ! same as in /etc/bose_mp3-settings.conf
 # var payload="name_of_soundfile"; ! no ".mp3" suffix
-# dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("/usr/local/addons/bose_mp3/bin/script.sh" # " " # player # " " # payload);
-# -----------------------------------------------------------------------------------------------------------------------------
+#
+# dom.GetObject("CUxD.CUX2801001:1.CMD_EXEC").State("/usr/local/addons/bose_mp3/bin/" # action # ".sh " # player # " " # payload);
+# --------------------------------------------------------------------------------------------------------------------------------
 
 
 # arguments
@@ -20,10 +23,12 @@ fi
 # settings
 ADDON="bose_mp3"
 ADDON_PATH="/usr/local/addons/${ADDON}"
-CONF_FILE="${ADDON_PATH}/etc/${ADDON}-settings.conf"                # this file must be edited by hand!
+CONF_FILE="${ADDON_PATH}/etc/${ADDON}-settings.conf"
 
 BOSE_IP=$(grep "^${PLAYER}=" "$CONF_FILE" | cut -d= -f2)
-CCU_IP=$(grep "^CCU_IP=" "$CONF_FILE" | cut -d= -f2)
+
+CCU_IP=$(ip route get 1 | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
+
 if [ -z "$BOSE_IP" ] || [ -z "$CCU_IP" ]; then
    exit 1
 fi
@@ -34,10 +39,10 @@ MP3_VOL=$(grep "^ANNOUNCE_VOLUME=" "$CONF_FILE" | cut -d= -f2)
 WAIT=$(grep "^WAIT=" "$CONF_FILE" | cut -d= -f2)
    [ -z "$WAIT" ] && WAIT=12
 
-if [ -f "${ADDON_PATH}/www/tts/${PAYLOAD}.mp3" ]; then
-   MP3_URL="http://${CCU_IP}/addons/bose_mp3/tts/${PAYLOAD}.mp3"
+if [ -f "${ADDON_PATH}/www/mp3/${PAYLOAD}.mp3" ]; then
+   MP3_URL="http://${CCU_IP}/addons/bose_mp3/mp3/${PAYLOAD}.mp3"
 else
-   MP3_URL="http://${CCU_IP}/addons/bose_mp3/tts/sorry.mp3"
+   MP3_URL="http://${CCU_IP}/addons/bose_mp3/mp3/sorry.mp3"
 fi
 
 
@@ -81,5 +86,5 @@ fi
 
 exit 0
 
-# ----------------------------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------------------------------------
 # EOF

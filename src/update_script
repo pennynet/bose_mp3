@@ -11,6 +11,7 @@ echo "Installing ${ADDON}..."
 mkdir -p "${ADDON_DIR}"
 cp -a ./* "${ADDON_DIR}/"
 chmod 755 "${ADDON_DIR}"/bin/*
+chmod 755 "${ADDON_DIR}"/www/*.cgi
 
 # Verwaltungs-Skript installieren
 cp "${ADDON_DIR}/${ADDON}" "${CONFIG_DIR}/rc.d/${ADDON}"
